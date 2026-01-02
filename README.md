@@ -8,7 +8,8 @@ Oz 코딩스쿨 과제와 실습 내용을 기록하는 저장소입니다.
 
 ## Directory
 
-![Static Badge](https://img.shields.io/badge/Assignment-_-7ea9f2?style=for-the-badge&logo=furrynetwork&logoColor=7ea9f2&labelColor=001740&link=https%3A%2F%2Fgithub.com%2FRyuHawon%2FOz-CodingSchool%2Ftree%2Fmain%2FAssignment)
+[![Static Badge](https://img.shields.io/badge/Assignment-_-7ea9f2?style=for-the-badge&logo=furrynetwork&logoColor=7ea9f2&labelColor=001740)](https://github.com/RyuHawon/Oz-CodingSchool/tree/main/Assignment)
+
 
 
 ---
