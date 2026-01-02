@@ -1,3 +1,6 @@
+
+![header](https://capsule-render.vercel.app/api?type=Speech&color=timeAuto&)
+
 # Oz 코딩스쿨 실습 저장소
 
 Oz 코딩스쿨 과제와 실습 내용을 기록하는 저장소입니다.
