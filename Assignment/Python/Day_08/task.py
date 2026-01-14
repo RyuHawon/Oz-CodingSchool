@@ -43,6 +43,7 @@ def Atm(my_account:Account):
                     )
                 if get_amount == '0':
                     print('선택메뉴로 돌아갑니다.')
+                    Call = None
                     continue
 
                 get_amount = int(get_amount)
@@ -64,6 +65,7 @@ def Atm(my_account:Account):
                     )
                 if get_amount == '0':
                     print('선택메뉴로 돌아갑니다.')
+                    Call = None
                     continue
 
                 get_amount = int(get_amount)
