@@ -23,6 +23,7 @@ CREATE TABLE items (
     item_def INT DEFAULT 0,
     set_id INT,
     FOREIGN KEY (set_id) REFERENCES sets(set_id) ON DELETE SET NULL
+    UNIQUE (item_id, parts)
 );
 
 CREATE TABLE equip (
@@ -31,7 +32,7 @@ CREATE TABLE equip (
     item_id INT,
     parts ENUM('HELMET', 'CHESTPLATE', 'GAUNTLETS', 'LEGGINGS', 'BOOTS') NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
-    FOREIGN KEY (item_id) REFERENCES items(item_id) ON DELETE CASCADE,
+    FOREIGN KEY (item_id, parts) REFERENCES items(item_id, parts) ON DELETE CASCADE,
     UNIQUE (user_id, parts)
 );
 
@@ -42,6 +43,6 @@ CREATE TABLE wishlists (
     item_id INT,
     parts ENUM('HELMET', 'CHESTPLATE', 'GAUNTLETS', 'LEGGINGS', 'BOOTS') NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
-    FOREIGN KEY (item_id) REFERENCES items(item_id) ON DELETE CASCADE,
+    FOREIGN KEY (item_id, parts) REFERENCES items(item_id, parts) ON DELETE CASCADE,
     UNIQUE (user_id, wishlist_name, parts)
 );
