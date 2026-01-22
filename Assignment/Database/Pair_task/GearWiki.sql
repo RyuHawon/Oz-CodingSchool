@@ -9,21 +9,20 @@ CREATE TABLE users (
     base_def INT DEFAULT 0
 );
 
+CREATE TABLE sets (
+    set_id INT AUTO_INCREMENT PRIMARY KEY,
+    set_name VARCHAR(255) NOT NULL,
+    effect VARCHAR(255)
+);
+
 CREATE TABLE items (
     item_id INT AUTO_INCREMENT PRIMARY KEY,
     item_name VARCHAR(255) NOT NULL,
     parts ENUM('HELMET', 'CHESTPLATE', 'GAUNTLETS', 'LEGGINGS', 'BOOTS') NOT NULL,
     item_atk INT DEFAULT 0,
     item_def INT DEFAULT 0,
-    set_name VARCHAR(255),
-);
-
-CREATE TABLE sets (
-    set_id INT AUTO_INCREMENT PRIMARY KEY,
-    item_id INT,
-    set_name VARCHAR(255) NOT NULL,
-    effect VARCHAR(50),
-    FOREIGN KEY (item_id) REFERENCES items(item_id) ON DELETE CASCADE
+    set_id INT,
+    FOREIGN KEY (set_id) REFERENCES sets(set_id) ON DELETE SET NULL
 );
 
 CREATE TABLE equip (
@@ -38,7 +37,7 @@ CREATE TABLE equip (
 
 CREATE TABLE wishlists (
     wishlist_id INT AUTO_INCREMENT PRIMARY KEY,
-    wishlist_name VARCHAR(100) NOT NULL,
+    wishlist_name VARCHAR(255) NOT NULL,
     user_id INT,
     item_id INT,
     parts ENUM('HELMET', 'CHESTPLATE', 'GAUNTLETS', 'LEGGINGS', 'BOOTS') NOT NULL,
