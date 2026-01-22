@@ -15,13 +15,13 @@ CREATE TABLE items (
     parts ENUM('HELMET', 'CHESTPLATE', 'GAUNTLETS', 'LEGGINGS', 'BOOTS') NOT NULL,
     item_atk INT DEFAULT 0,
     item_def INT DEFAULT 0,
-    set_name ENUM('NONE', 'WARRIOR', 'MAGE', 'ROGUE', 'GUARDIAN') DEFAULT 'NONE'
+    set_name VARCHAR(255),
 );
 
 CREATE TABLE sets (
     set_id INT AUTO_INCREMENT PRIMARY KEY,
     item_id INT,
-    set_name ENUM('WARRIOR', 'MAGE', 'ROGUE', 'GUARDIAN') NOT NULL,
+    set_name VARCHAR(255) NOT NULL,
     effect VARCHAR(50),
     FOREIGN KEY (item_id) REFERENCES items(item_id) ON DELETE CASCADE
 );
@@ -31,8 +31,6 @@ CREATE TABLE equip (
     user_id INT,
     item_id INT,
     parts ENUM('HELMET', 'CHESTPLATE', 'GAUNTLETS', 'LEGGINGS', 'BOOTS') NOT NULL,
-    total_atk INT DEFAULT 0,
-    total_def INT DEFAULT 0,
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
     FOREIGN KEY (item_id) REFERENCES items(item_id) ON DELETE CASCADE,
     UNIQUE (user_id, parts)
@@ -44,9 +42,7 @@ CREATE TABLE wishlists (
     user_id INT,
     item_id INT,
     parts ENUM('HELMET', 'CHESTPLATE', 'GAUNTLETS', 'LEGGINGS', 'BOOTS') NOT NULL,
-    equip_id INT,
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
     FOREIGN KEY (item_id) REFERENCES items(item_id) ON DELETE CASCADE,
-    FOREIGN KEY (equip_id) REFERENCES equip(equip_id) ON DELETE SET NULL,
     UNIQUE (user_id, wishlist_name, parts)
 );
