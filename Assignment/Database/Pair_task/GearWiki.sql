@@ -22,7 +22,7 @@ CREATE TABLE items (
     item_atk INT DEFAULT 0,
     item_def INT DEFAULT 0,
     set_id INT,
-    FOREIGN KEY (set_id) REFERENCES sets(set_id) ON DELETE SET NULL
+    FOREIGN KEY (set_id) REFERENCES sets(set_id) ON DELETE SET NULL,
     UNIQUE (item_id, parts)
 );
 
