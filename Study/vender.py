@@ -7,6 +7,12 @@ class Vending_Machine(ABC):
         self.name = name
         self.price = price
 
+    def serve(self, amount):
+        self.cost(amount)
+        self.prepare_product()
+        self.serve_product()
+        self.return_charge(amount)
+
     def cost(self, amount):
         print(f"{self.name}을 원하시면 {amount}원을 투입해주세요.")
 
@@ -35,6 +41,3 @@ class coffee_vender(Vending_Machine):
     def prepare_product(self):
         print(f"원두 추출 중 ...")
         print(f"컵에 따르는 중 ...")
-
-class coke_vender(Vending_Machine):
-    def
