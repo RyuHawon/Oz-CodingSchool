@@ -31,4 +31,3 @@ const handleClick = () => {
 } //화살표 함수
 
 buttonEl.addEventListener("click", handleClick);
-
