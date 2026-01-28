@@ -1,0 +1,15 @@
+* {
+    background-color: aliceblue;
+    color: black;
+    font: bold;
+    text-align: center;
+}
+
+.main-title {
+    display: block;
+    background-color: chocolate;
+    width: 100px;
+    padding: 3px;
+    margin: auto;
+    border-radius: 10px;
+}
