@@ -10,6 +10,7 @@
     <div class="container mt-3">
         <h3 class="mt-5 mb-3">신규 등록 상품</h3>
         <form class="row row-cols-lg-auto g-3 align-items-center">
+        
             <div class="col-auto">
                 <label class="visually-hidden" for="inlineFormSelectPeref">Preference</label>
                 <select class="form-select" name="category_data_table" id="inlineFormSelectPeref">
@@ -48,17 +49,21 @@
                 <tbody id="product_data_Table">
                 </tbody>
             </table>
-            <nav aria-label="Page navigation example">
-            <ul class="pagination">
-                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">Next</a></li>
-            </ul>
-            </nav>
-            <div class="col-auto ms-auto">
-                <button class="btn btn-secondary" onclick="toggleTheme()">다크모드</button>
+            <div>
+                <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                </ul>
+                </nav>
+            </div>
+            <div class="container mt-3 d-flex justify-content-end gap-2">
+                <button class="btn btn-outline-secondary btn-sm" onclick="toggleTheme()">다크모드</button>
+
+                <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#signupModal">회원가입</button>
             </div>
         </div>
 
