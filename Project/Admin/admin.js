@@ -34,7 +34,6 @@ searchForm.addEventListener('submit', function(e) {
     renderTable(filtered);
 });
 
-// 5. 다크모드 토글 함수
 function toggleTheme() {
     const html = document.documentElement;
     const currentTheme = html.getAttribute('data-bs-theme');
@@ -42,5 +41,4 @@ function toggleTheme() {
     html.setAttribute('data-bs-theme', newTheme);
 }
 
-// 초기 화면 표시
 renderTable(product_data);
