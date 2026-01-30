@@ -4,10 +4,12 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>설문조사 양식</title>
+
+        <link rel="stylesheet" href="./form.css">
     </head>
     <body>
         <header>
-            <h1>설문조사 양식</h1>
+            <h1 class="main-title">설문조사 양식</h1>
             <p>모든 항목에 빠짐없이 체크해주십시오.</p>
         </header>
         <hr>
@@ -27,8 +29,8 @@
                     <p>연령대가 어떻게 되십니까?</p>
                     <input type="radio" id="teen" name="age">
                     <label for="teen">10대</label>
-                    <input type="radio" id="twenty" name="age">
-                    <label for="twenty">20대</label>
+                    <input type="radio" id="twenty" name="age" alt="pick">
+                    <label for="twenty" alt="hot">20대</label>
                     <input type="radio" id="thirty" name="age">
                     <label for="thirty">30대</label>
                     <input type="radio" id="forty" name="age">
@@ -61,12 +63,12 @@
                     <legend>기타 의견</legend>
                     <textarea rows="3" cols="30" name="comment"></textarea>
                 </fieldset>
-                <input type="submit">
+                <input type="submit" id="button">
             </form>
         </main>
         <hr>
         <footer>
-            <p>입력하느라 수고하셨습니다.</p>
+            <p id="ment">입력하느라 수고하셨습니다.</p>
         </footer>
     </body>
 </html>

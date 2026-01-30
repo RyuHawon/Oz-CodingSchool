@@ -1,0 +1,28 @@
+* {
+    background-color: ivory;
+    color: black;
+    font: bold;
+    
+    text-align: center;
+    overflow: hidden;
+}
+
+label[alt] {
+    color : red;
+}
+
+#button:hover {
+    background-color: blue;
+}
+
+#button {
+    display: block;
+    float: right;
+    margin: 20px 50px 20px 50px;
+}
+
+#ment {
+    position : relative;
+    top:10px;
+    left: 30px;
+}
