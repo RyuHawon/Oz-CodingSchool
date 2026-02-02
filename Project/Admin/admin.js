@@ -41,5 +41,4 @@ function toggleTheme() {
     html.setAttribute('data-bs-theme', newTheme);
 }
 
-// 초기 화면 표시
 renderTable(product_data);
