@@ -45,3 +45,8 @@ class NYstyleCheesePizza(Pizza):
     def __init__(self):
         super().__init__()
         self.name = "NYstyleCheesePizza"
+
+    def prepare(self):
+        print(f"{self.name}을(를) 준비합니다.")
+
+        
