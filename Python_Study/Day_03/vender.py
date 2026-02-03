@@ -10,7 +10,6 @@ class VendingMachine(ABC):
         self.cost(amount)
         if not self.cost_check(amount):
             return
-        self.cost_check(amount)
         self.prepare_product()
         self.serve_product()
         self.return_charge(amount)
