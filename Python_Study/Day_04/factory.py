@@ -37,7 +37,7 @@ class PizzaStore(ABC):
         pizza.box()
         return pizza
     
-class NYstylePizza(PizzaStore):
+class NYPizzaStore(PizzaStore):
     def creat_pizza(self, pizza_type: str) -> Pizza:
         if pizza_type 
 
@@ -49,4 +49,3 @@ class NYstyleCheesePizza(Pizza):
     def prepare(self):
         print(f"{self.name}을(를) 준비합니다.")
 
-        
