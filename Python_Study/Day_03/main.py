@@ -1,4 +1,4 @@
-from coke_vender import coke_vender
+from coke_vender import CokeVender
 from coffee_vender import coffee_vender
 from ramen_vender import ramen_vender
 

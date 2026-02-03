@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-class Vending_Machine(ABC):
+class VendingMachine(ABC):
     def __init__(self, name, price: int):
         self.name = name
         self.price = price
@@ -10,7 +10,6 @@ class Vending_Machine(ABC):
         self.cost(amount)
         if not self.cost_check(amount):
             return
-        
         self.cost_check(amount)
         self.prepare_product()
         self.serve_product()
@@ -24,14 +23,13 @@ class Vending_Machine(ABC):
         if amount < self.price:
             print("잔액이 모자랍니다.")
             return False
-        else:
-            print(f"금액이 확인되었습니다. {self.name}을 준비합니다.")
-            return True
+        print(f"금액이 확인되었습니다. {self.name}을 준비합니다.")
+        return True
 
     # 준비함수는 각자 다를테니 꼭 각자 만들라고 인터페이스만 만들어둠
     @abstractmethod
     def prepare_product(self):
-        pass
+        raise Exception("오버라이딩 해야합니다.")
 
     def serve_product(self):
         print(f"{self.name}을(를) 배출합니다.")

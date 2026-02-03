@@ -1,6 +1,6 @@
 from vender import Vending_Machine
 
-class coke_vender(Vending_Machine):
+class CokeVender(VendingMachine):
     def __init__(self):
         super().__init__("콜라", 1200)
     
