@@ -6,8 +6,8 @@ class VendingMachine(ABC):
         self.price = price
 
     # 템플릿 메서드, 형식과 진행순서 모두 못박아둠
-    def serve(self, amount):
-        self.cost(amount)
+    def serve(self):
+        amount = self.cost()
         if not self.cost_check(amount):
             return
         self.prepare_product()
@@ -15,8 +15,13 @@ class VendingMachine(ABC):
         self.return_charge(amount)
 
     # serve 를 통해 실행될 함수들 만들어주면 됨
-    def cost(self, amount):
-        print(f"{self.name}을(를) 원하시면 {amount}원을 투입해주세요.")
+    def cost(self):
+        print(f"{self.name}을(를) 원하시면 {self.price}원을 투입해주세요.")
+        try:
+            return int(input("투입하실 금액을 입력해주세요: "))
+        except ValueError:
+            print("금액을 정수로 입력해주세요.")
+            exit()
 
     def cost_check(self, amount):
         if amount < self.price:
