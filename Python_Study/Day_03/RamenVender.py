@@ -1,6 +1,6 @@
-from vender import Vending_Machine
+from vender import VendingMachine
 
-class ramen_vender(Vending_Machine):
+class RamenVender(VendingMachine):
     def __init__(self):
         super().__init__("라면", 1000)
         

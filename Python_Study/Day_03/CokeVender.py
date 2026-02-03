@@ -1,4 +1,4 @@
-from vender import Vending_Machine
+from vender import VendingMachine
 
 class CokeVender(VendingMachine):
     def __init__(self):
