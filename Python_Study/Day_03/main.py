@@ -1,5 +1,4 @@
 from Manager import Manager
-from vender import VendingMachine
 
 manager = Manager()
 manager.show_list()
