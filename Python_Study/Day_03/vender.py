@@ -33,7 +33,7 @@ class VendingMachine(ABC):
     # 준비함수는 각자 다를테니 꼭 각자 만들라고 인터페이스만 만들어둠
     @abstractmethod
     def prepare_product(self):
-        raise Exception("오버라이딩 해야합니다.")
+        raise Exception("오버라이딩 해야합니다.") # 이런거 하면 코드 예쁘다고 함
 
     def serve_product(self):
         print(f"{self.name}을(를) 배출합니다.")
