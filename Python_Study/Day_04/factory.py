@@ -1,4 +1,7 @@
+
+
 from abc import ABC, abstractmethod
+
 
 class Pizza(ABC):
     def __init__(self):
@@ -16,6 +19,16 @@ class Pizza(ABC):
     
     def box(self):
         print(f"{self.name}을(를) 박스에 담는 중입니다")
+
+
+class NYstyleCheesePizza(Pizza):
+    def __init__(self):
+        super().__init__()
+        self.name = "NYstyleCheesePizza"
+
+    def prepare(self):
+        print(f"{self.name}을(를) 준비합니다.")
+
 
 # 추상 팩토리 !!
 class PizzaStore(ABC):
@@ -36,7 +49,8 @@ class PizzaStore(ABC):
         pizza.cut()
         pizza.box()
         return pizza
-    
+
+
 class NYPizzaStore(PizzaStore):
     def create_pizza(self, pizza_type: str) -> Pizza:
         if pizza_type == "cheese":
@@ -45,11 +59,5 @@ class NYPizzaStore(PizzaStore):
         else:
             return None
 
-class NYstyleCheesePizza(Pizza):
-    def __init__(self):
-        super().__init__()
-        self.name = "NYstyleCheesePizza"
 
-    def prepare(self):
-        print(f"{self.name}을(를) 준비합니다.")
 
