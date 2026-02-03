@@ -23,13 +23,13 @@ class PizzaStore(ABC):
 
     # 실제 존재하는 팩토리를 만드는 creat_pizza
     # 변함
-    def creat_pizza(self, pizza_type: str) -> Pizza:
+    def create_pizza(self, pizza_type: str) -> Pizza:
         pass
 
     # 여기서 한번만 해놓고 팩토리에서 다 가져다쓸것
     # 변하지 않음
     def order_pizza(self, pizza_type: str):
-        pizza = self.creat_pizza(pizza_type)
+        pizza = self.create_pizza(pizza_type)
 
         pizza.prepare()
         pizza.bake()
@@ -38,8 +38,12 @@ class PizzaStore(ABC):
         return pizza
     
 class NYPizzaStore(PizzaStore):
-    def creat_pizza(self, pizza_type: str) -> Pizza:
-        if pizza_type 
+    def create_pizza(self, pizza_type: str) -> Pizza:
+        if pizza_type == "cheese":
+            return NYstyleCheesePizza()
+            # 아 이렇게 만드는거구나
+        else:
+            return None
 
 class NYstyleCheesePizza(Pizza):
     def __init__(self):
