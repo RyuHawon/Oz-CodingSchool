@@ -8,7 +8,11 @@
 
     <ul>
         {% for fruit in fruits %}
-        <li>{{ fruit }}</li>
+            {% if fruit == "딸기" %}
+                <li>{{fruit}} 🍓 (인기!) </li>
+            {% else %}
+                <li>{{fruit}}</li>
+            {% endif %}
         {% endfor %}
     </ul>
 </body>
