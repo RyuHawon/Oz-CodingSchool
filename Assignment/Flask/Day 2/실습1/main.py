@@ -5,7 +5,7 @@ app = Flask(__name__)
 @app.route("/")
 def index():
     # TODO: index.html을 반환해주세요
-    return render_template()
+    return render_template("index.html")
 
 @app.route("/survey")
 def survey():
@@ -17,15 +17,16 @@ def survey():
     ]
 
     # TODO: servey.html을 반환하면서 questions를 넘겨주세요
-    return render_template()
+    return render_template("survey.html", questions=questions)
 
 @app.route("/result", methods=["GET"])
 def result():
     # TODO: query string에서 답변 받기 - getlist 사용
     # answers = ???
+    answers = request.args.getlist("answer")
 
     # TODO: result.html을 반환하면서 answers를 넘겨주세요
-    return render_template()
+    return render_template("result.html", answers=answers)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, port=2000)
