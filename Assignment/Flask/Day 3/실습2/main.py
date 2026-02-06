@@ -61,7 +61,7 @@ def get_todo(todo_id):
     todo = todos.get(todo_id).get(todo_id)
     db.colose()
 
-    if not task:
+    if not todo:
         return jsonify({'error': '해당 할 일이 없습니다.'}), 404
     return jsonify({'id': todo.id, 'task': todo.task})
 
