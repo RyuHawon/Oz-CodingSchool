@@ -76,5 +76,13 @@ class User(Base):
             db.commit()
             print('복수 사용자 일괄 수정', patterns)
 
+        if user:
+            db.query(User).delete()
+            db.commit()
+            print('사용자 삭제')
+
 
         db.close()
+
+if __name__ == "__main__":
+    User.run_bulk()
