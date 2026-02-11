@@ -33,7 +33,7 @@
             const name = document.getElementById("name").value;
             const email = document.getElementById("email").value;
 
-            fetch("/users", {
+            fetch("/user/", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ name, email }),
@@ -46,7 +46,7 @@
         });
 
         function getUsers() {
-            fetch("/users")
+            fetch("/user/")
                 .then((response) => response.json())
                 .then((data) => {
                     const usersDiv = document.getElementById("users");
@@ -63,7 +63,7 @@
             const name = document.getElementById("updateUsername").value;
             const email = document.getElementById("updateEmail").value;
 
-            fetch("/users/" + userId, {
+            fetch("/user/" + userId, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ name, email }),
@@ -79,7 +79,7 @@
             e.preventDefault();
             const userId = document.getElementById("deleteUserId").value;
 
-            fetch("/users/" + userId, {
+            fetch("/user/" + userId, {
                 method: "DELETE",
             })
             .then((response) => response.json())

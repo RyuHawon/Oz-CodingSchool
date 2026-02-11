@@ -58,7 +58,7 @@ class boardResource(MethodView):
         board.title = data['title']
         board.content = data['content']
 
-        db.session.commit
+        db.session.commit()
 
         return jsonify({'msg':'Successfully update board data'}), 201
 
