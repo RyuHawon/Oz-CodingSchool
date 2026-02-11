@@ -1,10 +1,11 @@
 from flask import Flask
 from flask_smorest import Api
 from db import db
+from models import User, Board
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:gsig95rp@localhost/oz-db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:gsig95rp@localhost/oz'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
@@ -18,7 +19,8 @@ app.config['OPENAPI_SWAGGER_UI_URL'] = 'https://cdn.jsdelivr.net/npm/swagger-ui-
 
 api = Api(app)
 
-# api.register_blueprint()
+from routes.board import board_blp
+api.register_blueprint(board_blp)
 
 from flask import render_template
 @app.route('/manage-boards')
@@ -29,8 +31,8 @@ def manage_boards():
 def manage_users():
     return render_template('users.html')
 
-if __name__ == 'main':
+if __name__ == '__main__':
     with app.app_context():
-        db.create_all
+        db.create_all()
 
     app.run(debug=True)
