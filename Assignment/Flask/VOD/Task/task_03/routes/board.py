@@ -13,6 +13,7 @@ board_blp = Blueprint('Boards', 'boards', description='Operations on boards', ur
 # 게시글 작성 (POST)
 @board_blp.route('/')
 class BoardList(MethodView):
+    @user_blp.response(200, UserSchema(many=True))
     def get(self):
         boards = Board.query.all()
 
