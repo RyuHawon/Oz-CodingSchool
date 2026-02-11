@@ -27,9 +27,45 @@ class BoardList(MethodView):
         return jsonify([{'id':board.id, 'title':board.title, 'content':board.content, 'user_id':board.user_id, 'author_name':board.author.name, 'author_email':board.author.email}for board in boards])
 
     def post(self):
-        pass
+        data = request.json
+        new_board = Board(title=data['title'], content=data['content'], user_id=data['user_id'])
+        db.session.add(new_board)
+        db.session.commit()
+
+        return jsonify({'msg': 'success create board'}), 201
 
 # # /board/<int: board_id>
 # 하나의 게시글 불러오기 (GET)
 # 특정 게시글 수정하기 (PUT)
 # 특정 게시글 삭제하기 (DELETE)
+@board_blp.route('/<int:board_id>')
+class boardResource(MethodView):
+    def get(self, board_id):
+        board = Board.query.get_or_404(board_id)
+
+        return jsonify({'id':board.id,
+                        'title':board.title,
+                        'content':board.content,
+                        'user_id':board.user_id,
+                        'author_name':board.author.name,
+                        'author_email':board.author.email
+                        })
+
+    def put(self, board_id):
+        board = Board.query.get_or_404(board_id)
+        data = request.json
+
+        board.title = data['title']
+        board.content = data['content']
+
+        db.session.commit
+
+        return jsonify({'msg':'Successfully update board data'}), 201
+
+    
+    def delete(self, board_id):
+        board = Board.query.get_or_404(board_id)
+        db.session.delete(board)
+        db.session.commit()
+
+        return jsonify({'msg':'Successfully delete board data'}), 201
