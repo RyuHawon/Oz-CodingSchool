@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Board Management</title>
+</head>
+<body>
+    <h1>Board Management</h1>
+
+    <form id="createBoardForm">
+        <input type="text" id="boardTitle" placeholder="Title" required />
+        <textarea id="boardContent" placeholder="Content" required></textarea>
+        <input type="number" id="userId" placeholder="User ID" required />
+        <button type="submit">Create Board</button>
+    </form>
+
+    <hr>
+
+    <button onclick="getBoards()">Get All Boards</button>
+    <div id="boards"></div>
+
+    <hr>
+
+    <form id="updateBoardForm">
+        <input type="number" id="updateBoardId" placeholder="Board ID" required />
+        <input type="text" id="updateBoardTitle" placeholder="New Title" />
+        <textarea id="updateBoardContent" placeholder="New Content"></textarea>
+        <button type="submit">Update Board</button>
+    </form>
+
+    <hr>
+
+    <form id="deleteBoardForm">
+        <input type="number" id="deleteBoardId" placeholder="Board ID" required />
+        <button type="submit">Delete Board</button>
+    </form>
+
+    <script>
+        // 게시글 생성 (POST)
+        document.getElementById("createBoardForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+            const title = document.getElementById("boardTitle").value;
+            const content = document.getElementById("boardContent").value;
+            const userId = document.getElementById("userId").value;
+
+            // 팁: Flask 라우트 설정에 따라 "/board/" (슬래시 포함)로 수정해야 할 수도 있습니다.
+            fetch("/board", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ title, content, user_id: userId }),
+            })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log("Created:", data);
+                getBoards();
+            });
+        });
+
+        // 게시글 전체 조회 (GET)
+        function getBoards() {
+            fetch("/board")
+            .then((response) => response.json())
+            .then((data) => {
+                const boardsDiv = document.getElementById("boards");
+                boardsDiv.innerHTML = "";
+                data.forEach((board) => {
+                    boardsDiv.innerHTML += `
+                        <p>
+                            <strong>[ID: ${board.id}]</strong> ${board.title} <br>
+                            내용: ${board.content} (작성자 ID: ${board.user_id})
+                        </p>`;
+                });
+            });
+        }
+
+        // 게시글 수정 (PUT)
+        document.getElementById("updateBoardForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+            const boardId = document.getElementById("updateBoardId").value;
+            const title = document.getElementById("updateBoardTitle").value;
+            const content = document.getElementById("updateBoardContent").value;
+
+            fetch("/board/" + boardId, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ title, content }),
+            })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log("Updated:", data);
+                getBoards();
+            });
+        });
+
+        // 게시글 삭제 (DELETE)
+        document.getElementById("deleteBoardForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+            const boardId = document.getElementById("deleteBoardId").value;
+
+            fetch("/board/" + boardId, {
+                method: "DELETE",
+            })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log("Deleted:", data);
+                getBoards();
+            });
+        });
+    </script>
+</body>
+</html>
