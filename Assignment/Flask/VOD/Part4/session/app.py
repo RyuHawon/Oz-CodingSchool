@@ -1,8 +1,10 @@
 from flask import Flask, render_template, request, redirect, session, flash
+from datetime import timedelta
 
 app = Flask(__name__)
 
 app.secret_key = 'flask-secret-key' # 실제 배포시에는 .env or yaml 으로 저장
+app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=7)
 
 # admin user
 users = {
@@ -21,6 +23,7 @@ def login():
 
     if username in users and users[username] == password:
         session['username'] = username
+        session.permanent = True
 
         return redirect('/secret')
     else:
@@ -40,6 +43,7 @@ def secret():
 @app.route('/logout')
 def logout():
     session.pop('username', None)
+    # session.clear() 사용가능
     return redirect('/')
 
 if __name__ == '__main__':
