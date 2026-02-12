@@ -50,7 +50,7 @@ class PostsResource(MethodView):
         post.content = update_post['content']
 
         db.session.commit()
-        return {'msg':'Successfully updated post'}
+        return post
     
     @posts_blp.response(204, PostSchema)
     def delete(self, post_id):
@@ -58,4 +58,4 @@ class PostsResource(MethodView):
         db.session.delete(post)
         
         db.session.commit()
-        return {'msg':'Successfully deleted post'}
+        return ''
