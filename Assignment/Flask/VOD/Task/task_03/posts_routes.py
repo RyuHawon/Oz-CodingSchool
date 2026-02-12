@@ -43,7 +43,7 @@ class PostsResource(MethodView):
     
     # PUT
     @posts_blp.arguments(PostSchema)
-    @posts_blp.response(201, PostSchema)
+    @posts_blp.response(200, PostSchema)
     def put(self, update_post, post_id):
         post = Post.query.get_or_404(post_id)
         post.title = update_post['title']
@@ -52,7 +52,7 @@ class PostsResource(MethodView):
         db.session.commit()
         return post
     
-    @posts_blp.response(204, PostSchema)
+    @posts_blp.response(204)
     def delete(self, post_id):
         post = Post.query.get_or_404(post_id)
         db.session.delete(post)
