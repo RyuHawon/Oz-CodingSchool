@@ -2,7 +2,7 @@ from flask import Flask, render_template
 from flask_smorest import Api
 from db import db
 from models import Post
-from posts_routes import create_posts_blueprint
+from posts_routes import posts_blp
 
 app = Flask(__name__)
 
@@ -18,16 +18,11 @@ app.config['OPENAPI_SWAGGER_UI_PATH'] = '/swagger-ui'
 app.config['OPENAPI_SWAGGER_UI_URL'] = 'https://cdn.jsdelivr.net/npm/swagger-ui-dist/'
 
 api = Api(app)
-posts_blp = create_posts_blueprint()
 api.register_blueprint(posts_blp)
 
 @app.route('/manage-posts')
 def manage_posts():
     return render_template('posts.html')
-
-@app.route('/manage-post')
-def manage_post():
-    return render_template('post.html')
 
 with app.app_context():
     db.create_all()

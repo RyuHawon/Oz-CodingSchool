@@ -20,10 +20,10 @@ user_blp = Blueprint('Users', 'users', description='Operations on users', url_pr
 class UserList(MethodView):
     @user_blp.response(200, UserSchema(many=True))
     def get(self):
-        users = User.query.all()
-        user_data = [{"id":user.id, "name": user.name, "email": user.email} for user in users]
-        
-        return jsonify(user_data)
+        return User.query.all()
+
+        # user_data = [{"id":user.id, "name": user.name, "email": user.email} for user in users]
+        # return jsonify(user_data)
     
     @user_blp.arguments(UserSchema)
     @user_blp.response(201, UserSchema)
@@ -35,7 +35,7 @@ class UserList(MethodView):
         db.session.add(new_user)
         db.session.commit()
 
-        return jsonify({'msg':'Successfully created new user'}), 201
+        return new_user
 
 # (1) 특정 유저 데이터 조회 (GET)
 # (2) 특정 유저 데이터 업데이트 (PUT)
@@ -51,7 +51,8 @@ class UserResource(MethodView):
     @user_blp.response(200, UserSchema)
     def put(self, user_data, user_id):
         user = User.query.get_or_404(user_id)
-        user_data = request.json
+        # 필요없을듯
+        # user_data = request.json
 
         user.name = user_data['name']
         user.email = user_data['email']
