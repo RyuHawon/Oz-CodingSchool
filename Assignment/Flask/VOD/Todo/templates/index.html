@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Todo App</title>
+</head>
+<body>
+
+    <h1>Todo App</h1>
+
+    <div id="login-area">
+        <h2>Login</h2>
+        <input type="text" id="username" placeholder="Username">
+        <input type="password" id="password" placeholder="Password">
+        <button onclick="login()">Login</button>
+    </div>
+
+    <p id="login-msg" style="color: blue;"></p>
+
+    <h2>Create Todo</h2>
+    <input type="text" id="todo-title" placeholder="Todo Title">
+    <button onclick="createTodo()">Create Todo</button>
+    
+    <p id="create-msg" style="color: green;"></p>
+
+    <h2>Todo List</h2>
+    <ul id="todo-list">
+        </ul>
+
+    <script>
+        // 1. 로그인 기능
+        function login() {
+            const user = document.getElementById('username').value;
+            if (user === "") {
+                alert("이름을 입력하세요!");
+                return;
+            }
+            
+            // 로그인 창 숨기기
+            document.getElementById('login-area').style.display = 'none';
+            // 성공 메시지 띄우기
+            document.getElementById('login-msg').innerText = "Logged in successfully";
+        }
+
+        // 2. 투두 생성 기능
+        function createTodo() {
+            const title = document.getElementById('todo-title').value;
+            if (title === "") return;
+
+            // 성공 메시지 띄우기
+            document.getElementById('create-msg').innerText = "Todo created successfully";
+
+            // 리스트에 추가
+            const li = document.createElement('li');
+            li.innerHTML = `
+                ${title} - Completed: <span class="status">false</span>
+                <button onclick="completeTodo(this)">Complete</button>
+                <button onclick="undoTodo(this)">Undo</button>
+                <button onclick="deleteTodo(this)">Delete</button>
+            `;
+            document.getElementById('todo-list').appendChild(li);
+
+            // 입력창 비우기
+            document.getElementById('todo-title').value = "";
+        }
+
+        // 3. 완료 버튼
+        function completeTodo(btn) {
+            const status = btn.parentElement.querySelector('.status');
+            status.innerText = "true";
+        }
+
+        // 4. 되돌리기 버튼
+        function undoTodo(btn) {
+            const status = btn.parentElement.querySelector('.status');
+            status.innerText = "false";
+        }
+
+        // 5. 삭제 버튼
+        function deleteTodo(btn) {
+            btn.parentElement.remove();
+        }
+    </script>
+
+</body>
+</html>
