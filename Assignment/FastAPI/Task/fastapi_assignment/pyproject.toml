@@ -7,7 +7,14 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.14"
+pydantic = "^2.12.5"
+fastapi = "^0.129.0"
+uvicorn = "^0.41.0"
 
+
+[tool.poetry.group.dev.dependencies]
+black = "24.10.0"
+ruff = "0.8.2"
 
 [build-system]
 requires = ["poetry-core"]
