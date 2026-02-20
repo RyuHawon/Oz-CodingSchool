@@ -21,6 +21,7 @@ class Product(BaseModel):
     def final_price(self) -> float:
         return round(self.price * (1 - self.discount / 100), 1)
 
+
 @app.post("/products/")
 def create_product(product: Product):
     return product
