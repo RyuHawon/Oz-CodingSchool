@@ -32,11 +32,7 @@ async def get_all_users() -> list[UserModel]:
 async def search_users(
     query_params: Annotated[UserSearchParams, Query()],
 ) -> list[UserModel]:
-    valid_query = {
-        key: value
-        for key, value in query_params.model_dump().items()
-        if value is not None
-    }
+    valid_query = query_params.model_dump(exclude_none=True)
     filtered_users = UserModel.filter(**valid_query)
     if not filtered_users:
         raise HTTPException(status_code=404)
