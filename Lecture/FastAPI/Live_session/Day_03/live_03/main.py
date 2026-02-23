@@ -18,7 +18,6 @@ from sqlalchemy.ext.asyncio import AsyncSession
 app = FastAPI()
 
 
-
 ######################
 # utils
 ######################
@@ -47,20 +46,45 @@ def create_access_token(data: dict):
     to_encode.update({"exp": expire})
     return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
 
-# TODO: 인증 관련
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/login")
 
 async def get_current_user(
     token: str = Depends(oauth2_scheme),
     db: AsyncSession = Depends(get_db),
 ):
-    """ TODO
-    1. 전달된 JWT 토큰을 검증하여 사용자 정보를 가져옴
-    2. 토큰이 유효하지 않거나 만료되면 401 반환
-    3. DB에서 사용자 존재 여부 확인
-    4. 사용자가 없거나 토큰이 유효하지 않다면, 401 Unauthorized 오류를 반환
-    """
-    pass
+    # 토큰 복호화
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        # 전달된 JWT 토큰을 검증하여 사용자 정보를 가져옴
+        username: str = payload.get("sub")
+        if username is None:
+            # 해당 유저가 없을 경우
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail='존재하지 않는 유저입니다.'
+            )
+
+    except JWTError:
+        # 토큰이 유효하지 않거나 만료되면 401 반환
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail='토큰 정보가 올바르지 않습니다.'
+        )
+
+    # try-except 통과하면 유효한 토큰
+    # DB에서 유저 조회
+    userdata = select(User).where(User.username == username)
+    result = await db.execute(userdata)
+    user = result.scalar_one_or_none()
+
+    if user is None:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail='존재하지 않는 유저입니다.'
+        )
+
+    return user
+
 
 ######################
 # pydantic
@@ -123,7 +147,7 @@ async def login(
     return {"access_token": access_token, "token_type": "bearer"}
 
 @app.get("/profile")
-async def profile(current_user: dict = Depends(get_current_user)):
+async def profile(current_user: User = Depends(get_current_user)):
     return {
-        "username": current_user["username"]
+        "username": current_user.username
     }
