@@ -12,4 +12,8 @@ class Product(BaseModel):
 
 @app.post("/products/")
 def create_product(product: Product):
-    return {"name": product.name, "price": product.price, "description": product.description}
+    return {
+        "name": product.name,
+        "price": product.price,
+        "description": product.description,
+    }

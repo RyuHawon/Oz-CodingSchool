@@ -1,7 +1,7 @@
-from typing import Annotated
 from fastapi import FastAPI, HTTPException, status, Path
 from app.models.users import UserModel
-from app.schemas.users import UserCreate
+from app.schemas.users import UserCreate, UserUpdate
+
 
 app = FastAPI()
 
@@ -27,6 +27,23 @@ def get_user(user_id: int = Path(gt=0)):
     if user is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
     return user
+
+
+@app.patch("/users/{user_id}/")
+def update_user(update_data: UserUpdate, user_id: int = Path(gt=0)):
+    user = UserModel.get(id=user_id)
+    if user is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
+
+    user.update(**update_data.model_dump(exclude_unset=True))
+    # 사용자가 보내지 않은 데이터는 None 대신 아예 없게 처리
+    return user
+
+
+
+
+
+
 
 
 if __name__ == "__main__":

@@ -1,0 +1,43 @@
+[tool.poetry]
+name = "live-session"
+version = "0.1.0"
+description = ""
+authors = ["RyuHawon <hfixjsj49@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.14"
+sqlalchemy = "2.0.45"
+black = "^26.1.0"
+aiosqlite = "0.22.1"
+greenlet = "3.3.0"
+fastapi = "0.128.0"
+passlib = "1.7.4"
+python-jose = "3.5.0"
+annotated-doc = "0.0.4"
+annotated-types = "0.7.0"
+anyio = "4.12.0"
+argon2-cffi = "25.1.0"
+argon2-cffi-bindings = "25.1.0"
+cffi = "2.0.0"
+click = "8.3.1"
+dnspython = "2.8.0"
+ecdsa = "0.19.1"
+email-validator = "2.3.0"
+h11 = "0.16.0"
+idna = "3.11"
+pyasn1 = "0.6.1"
+pycparser = "2.23"
+pydantic = "2.12.5"
+pydantic-core = "2.41.5"
+rsa = "4.9.1"
+six = "1.17.0"
+starlette = "0.50.0"
+typing-inspection = "0.4.2"
+typing-extensions = "4.15.0"
+uvicorn = "0.40.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
