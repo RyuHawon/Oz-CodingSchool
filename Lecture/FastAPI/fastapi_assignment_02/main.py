@@ -1,16 +1,19 @@
-# main.py
-
 from typing import Annotated
-
 from fastapi import FastAPI
-
 from app.models.users import UserModel
+from app.schemas.users import UserCreateRequest
 
 app = FastAPI()
+UserModel.create_dummy()
 
-UserModel.create_dummy()  # API 테스트를 위한 더미를 생성하는 메서드 입니다.
 
-if __name__ == '__main__':
+@app.post("/users/")
+async def create_user(data: UserCreateRequest) -> int:
+    user = UserModel.create(**data.model_dump())
+    return user.id
+
+
+if __name__ == "__main__":
     import uvicorn
 
-    uvicorn.run(app, host='0.0.0.0', port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8000)
