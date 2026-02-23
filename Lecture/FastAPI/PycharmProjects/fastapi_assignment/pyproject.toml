@@ -9,6 +9,8 @@ readme = "README.md"
 python = "^3.14"
 fastapi = "^0.129.0"
 uvicorn = "^0.41.0"
+black = "^26.1.0"
+ruff = "^0.15.2"
 
 
 [build-system]

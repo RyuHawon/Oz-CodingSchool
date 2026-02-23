@@ -1,11 +1,12 @@
-from fastapi import FastAPI, HTTPException, status, Path
+from fastapi import FastAPI, HTTPException, status, Path, Query
 from app.models.users import UserModel
-from app.schemas.users import UserCreate, UserUpdate
-
+from app.schemas.users import UserCreate, UserUpdate, UserSearchParams
+from typing import Annotated
 
 app = FastAPI()
 
 UserModel.create_dummy()
+
 
 @app.post("/users/")
 def create_users(user: UserCreate):
@@ -40,10 +41,28 @@ def update_user(update_data: UserUpdate, user_id: int = Path(gt=0)):
     return user
 
 
+@app.delete("/users/{user_id}/", status_code=status.HTTP_204_NO_CONTENT)
+def delete_user(user_id: int = Path(gt=0)):
+    user = UserModel.get(id=user_id)
+    if user is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
+
+    user.delete()
+    return {"detail": f"User {user_id}, Successfully deleted."}
 
 
+@app.get("/users/search/")
+def search_users(query_params: Annotated[UserSearchParams, Query()]):
+    valid_query = {
+        key: value
+        for key, value in query_params.model_dump().items()
+        if value is not None
+    }
+    filtered_users = UserModel.filter(**valid_query)
+    if not filtered_users:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
 
-
+    return filtered_users
 
 
 if __name__ == "__main__":
