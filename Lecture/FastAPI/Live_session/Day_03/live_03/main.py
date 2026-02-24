@@ -14,7 +14,6 @@ from models import User
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-
 app = FastAPI()
 
 
@@ -24,12 +23,13 @@ app = FastAPI()
 
 # Password
 pwd_context = CryptContext(
-    schemes=["argon2"], # 암호화 알고리즘 (bcrypt, argon2)
-    deprecated="auto"
+    schemes=["argon2"], deprecated="auto"  # 암호화 알고리즘 (bcrypt, argon2)
 )
+
 
 def hash_password(password: str):
     return pwd_context.hash(password)
+
 
 def verify_password(plain, hashed):
     return pwd_context.verify(plain, hashed)
@@ -37,8 +37,9 @@ def verify_password(plain, hashed):
 
 # Access Token (JWT 형태)
 ALGORITHM = "HS256"
-SECRET_KEY = "be-oz" # 자물쇠
+SECRET_KEY = "be-oz"  # 자물쇠
 ACCESS_TOKEN_EXPIRE_MINS = 30
+
 
 def create_access_token(data: dict):
     to_encode = data.copy()
@@ -46,7 +47,9 @@ def create_access_token(data: dict):
     to_encode.update({"exp": expire})
     return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
 
+
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/login")
+
 
 async def get_current_user(
     token: str = Depends(oauth2_scheme),
@@ -61,14 +64,14 @@ async def get_current_user(
             # 해당 유저가 없을 경우
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
-                detail='존재하지 않는 유저입니다.'
+                detail="존재하지 않는 유저입니다.",
             )
 
     except JWTError:
         # 토큰이 유효하지 않거나 만료되면 401 반환
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail='토큰 정보가 올바르지 않습니다.'
+            detail="토큰 정보가 올바르지 않습니다.",
         )
 
     # try-except 통과하면 유효한 토큰
@@ -79,8 +82,7 @@ async def get_current_user(
 
     if user is None:
         raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail='존재하지 않는 유저입니다.'
+            status_code=status.HTTP_401_UNAUTHORIZED, detail="존재하지 않는 유저입니다."
         )
 
     return user
@@ -93,9 +95,11 @@ class UserRegister(BaseModel):
     username: str
     password: str
 
+
 class UserLogin(BaseModel):
     username: str
     password: str
+
 
 class Token(BaseModel):
     access_token: str
@@ -106,37 +110,24 @@ class Token(BaseModel):
 # api
 ######################
 @app.post("/register")
-async def register(
-    user: UserRegister,
-    db: AsyncSession = Depends(get_db)
-):
+async def register(user: UserRegister, db: AsyncSession = Depends(get_db)):
     # 유저가 이미 가입했는지 확인하기
-    result = await db.execute(
-        select(User).where(User.username == user.username)
-    )
+    result = await db.execute(select(User).where(User.username == user.username))
     existing_user = result.scalar_one_or_none()
     if existing_user:
         raise HTTPException(status_code=400, detail="이미 가입한 사람")
 
     # 새로운 유저를 db 추가
-    new_user = User(
-        username=user.username,
-        password=hash_password(user.password)
-    )
+    new_user = User(username=user.username, password=hash_password(user.password))
     db.add(new_user)
     await db.commit()
     return {"message": "회원가입 성공"}
 
 
 @app.post("/login", response_model=Token)
-async def login(
-    user: UserLogin,
-    db: AsyncSession = Depends(get_db)
-):
+async def login(user: UserLogin, db: AsyncSession = Depends(get_db)):
     # 유저가 등록되어 있는지 확인하기
-    result = await db.execute(
-        select(User).where(User.username == user.username)
-    )
+    result = await db.execute(select(User).where(User.username == user.username))
     db_user = result.scalar_one_or_none()
 
     # 유저가 없거나 비밀번호 오류
@@ -146,8 +137,7 @@ async def login(
     access_token = create_access_token({"sub": db_user.username})
     return {"access_token": access_token, "token_type": "bearer"}
 
+
 @app.get("/profile")
 async def profile(current_user: User = Depends(get_current_user)):
-    return {
-        "username": current_user.username
-    }
+    return {"username": current_user.username}
