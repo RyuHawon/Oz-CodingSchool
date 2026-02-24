@@ -37,6 +37,7 @@ def test_get_eta_2024_02_28() -> None:
     result = get_eta(datetime(2024, 2, 28))
     assert result == datetime(2024, 3, 1)
 
+
 def test_get_eta_2023_02_28() -> None:
     result = get_eta(datetime(2023, 2, 28))
     assert result == datetime(2023, 3, 2)
