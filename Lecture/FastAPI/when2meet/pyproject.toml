@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "when2meet"
+version = "0.1.0"
+description = ""
+authors = ["RyuHawon <hfixjsj49@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.14"
+fastapi = "^0.132.0"
+
+
+[tool.poetry.group.dev.dependencies]
+mypy = "1.13.0"
+black = "^26.1.0"
+ruff = "^0.15.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
