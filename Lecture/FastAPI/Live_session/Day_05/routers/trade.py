@@ -114,6 +114,10 @@ async def trade(
     await db.commit()
     # db.commit()으로 변경 사항을 저장하세요.
 
+    await manager.broadcast({
+        "type": "trade_news",
+        "msg": f"🔔 {username}님 {action} 완료"
+    })
     # manager.broadcast를 사용해 전체 사용자에게 거래 알림 메시지를 전송하세요.
     # 메시지 형식: {"type": "trade_news", "msg": f"🔔 {username}님 {action} 완료"}
 
