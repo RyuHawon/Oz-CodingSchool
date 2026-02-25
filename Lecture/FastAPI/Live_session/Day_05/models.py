@@ -15,7 +15,7 @@ class User(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     username: Mapped[str] = mapped_column(String, unique=True, nullable=False)
     password: Mapped[str] = mapped_column(String, nullable=False)
-    balance: Mapped[float] = mapped_column(Float, default=3000000.0)
+    balance: Mapped[float] = mapped_column(Float, default=3000000)
     # id, username(아이디), password(암호화된 비번), balance(잔액, float) 필드를 정의하세요
 
 class Portfolio(Base):

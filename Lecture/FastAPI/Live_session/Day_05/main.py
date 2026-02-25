@@ -66,7 +66,7 @@ async def register(
     new_user = models.User(
         username=username,
         password=hashed_password,
-        balance=3000000.0
+        balance=3000000
     )
 
     db.add(new_user)

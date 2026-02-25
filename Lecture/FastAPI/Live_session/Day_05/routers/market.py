@@ -13,7 +13,7 @@ class ConnectionManager:
     """웹소켓 연결 관리자"""
     def __init__(self):
         # 연결된 클라이언트 리스트 저장
-        self.active_connections = []
+        self.active_connections : list[WebSocket] = []
 
     async def connect(self, ws: WebSocket):
         # 웹소켓 연결을 수락(accept)하고 리스트에 추가하세요

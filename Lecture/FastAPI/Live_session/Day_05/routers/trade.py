@@ -21,9 +21,21 @@ async def get_status(
 ):
     """사용자 자산 상태 조회 실습"""
 
-    # TODO: db.execute와 select를 사용해 현재 유저의 Portfolio 정보를 조회하세요
+    # db.execute와 select를 사용해 현재 유저의 Portfolio 정보를 조회하세요
+    # 유저 아이디 user.username
+    result = await db.execute(select(models.Portfolio).where(models.Portfolio.username == user.username))
+    p = result.scalar_one_or_none()
 
-    # TODO: 포트폴리오(p) 존재 여부에 따라 보유수량(amount)과 평단가(avg_price)를 변수에 저장하세요 (없으면 0)
+    # 포트폴리오(p) 존재 여부에 따라 보유수량(amount)과 평단가(avg_price)를 변수에 저장하세요 (없으면 0)
+    amount = p.amount
+    if amount is None:
+        amount = 0
+
+    avg_price = p.avg_price
+    if p.amount is None:
+        avg_price = 0
+
+
 
     # TODO: 현재가(current_price)를 기준으로 다음 수치를 계산하세요
     # 1. evaluation: 평가 금액 (보유수량 * 현재가)
