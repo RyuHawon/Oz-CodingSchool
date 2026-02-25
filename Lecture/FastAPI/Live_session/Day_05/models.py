@@ -25,7 +25,7 @@ class Portfolio(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     username: Mapped[str] = mapped_column(String, unique=True, nullable=False) #FK
     symbol: Mapped[str] = mapped_column(String, nullable=False)
-    amout: Mapped[int] = mapped_column(Integer, default=0)
+    amount: Mapped[int] = mapped_column(Integer, default=0)
     avg_price: Mapped[float] = mapped_column(Float, default=0)
 
     # id, username(소유자 아이디), symbol(종목코드), amount(보유수량), avg_price(매수평단가) 필드를 정의하세요
