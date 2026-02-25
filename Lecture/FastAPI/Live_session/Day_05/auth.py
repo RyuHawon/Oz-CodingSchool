@@ -11,10 +11,12 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 from database import get_db
 import models
+from datetime import datetime, timedelta
 
 # JWT 서명에 사용할 SECRET_KEY와 ALGORITHM(HS256)을 설정하세요
 SECRET_KEY = "ozbe17_super_long_and_complicate_secret_key"
 ALGORITHM = "HS256"
+ACCESS_TOKEN_EXPIRE_MINS = 15
 
 # 비밀번호 암호화 컨텍스트 (argon2 알고리즘 사용)
 pwd_context = CryptContext(schemes=["argon2"], deprecated="auto")
@@ -24,6 +26,10 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
 
 def create_access_token(data: dict):
     to_encode = data.copy()
+    expire = datetime.now() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINS)
+    to_encode.update({'exp': expire})
+
+    return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
 
 
 async def get_current_user(

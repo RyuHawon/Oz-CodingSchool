@@ -72,26 +72,26 @@ async def trade(
     p = result.scalar_one_or_none()
 
     if action == "buy":
-        # TODO: 총 매수 비용(cost)을 계산하고, 유저 잔액(user.balance)이 부족할 경우 HTTPException(400)을 발생시키세요.
+        # 총 매수 비용(cost)을 계산하고, 유저 잔액(user.balance)이 부족할 경우 HTTPException(400)을 발생시키세요.
 
-        # TODO: 유저의 잔액에서 매수 비용을 차감하세요.
+        # 유저의 잔액에서 매수 비용을 차감하세요.
 
-        # TODO: 포트폴리오 업데이트 로직을 구현하세요.
+        # 포트폴리오 업데이트 로직을 구현하세요.
         # 1. 기존 데이터(p)가 있는 경우: 가중 평균을 이용해 평단가(p.avg_price)를 갱신하고 수량을 더합니다.
         # 2. 기존 데이터가 없는 경우: 새로운 models.Portfolio 객체를 생성(new_p)하고 db.add() 하세요.
         pass
 
     elif action == "sell":
-        # TODO: 매도 가능 여부를 체크하세요. (포트폴리오가 없거나, 보유 수량 < 매도 요청 수량일 경우 400 에러)
+        # 매도 가능 여부를 체크하세요. (포트폴리오가 없거나, 보유 수량 < 매도 요청 수량일 경우 400 에러)
 
-        # TODO: 유저의 잔액을 매도 대금만큼 증가시키고, 포트폴리오 수량(p.amount)을 차감하세요.
+        # 유저의 잔액을 매도 대금만큼 증가시키고, 포트폴리오 수량(p.amount)을 차감하세요.
 
-        # TODO: 수량이 0이 될 경우 db.delete(p)를 호출하여 데이터를 삭제하세요.
-        pass
+        # 수량이 0이 될 경우 db.delete(p)를 호출하여 데이터를 삭제하세요.
 
-    # TODO: db.commit()으로 변경 사항을 저장하세요.
 
-    # TODO: manager.broadcast를 사용해 전체 사용자에게 거래 알림 메시지를 전송하세요.
+    # db.commit()으로 변경 사항을 저장하세요.
+
+    # manager.broadcast를 사용해 전체 사용자에게 거래 알림 메시지를 전송하세요.
     # 메시지 형식: {"type": "trade_news", "msg": f"🔔 {username}님 {action} 완료"}
 
     return {"msg": "success"}

@@ -77,6 +77,9 @@ async def register(
 """로그인"""
 # 유저 정보를 확인하고, 비밀번호 검증 후 JWT 토큰을 발급하세요
 # 토큰 만료 시간은 현재시간 + 15분 입니다.
+
+oauth2_scheme = OAuth2PasswordRequestForm
+
 @app.post("/login")
 async def login(
     form_data: OAuth2PasswordRequestForm = Depends(),
@@ -88,16 +91,6 @@ async def login(
 
     if user is None or not auth.pwd_context.verify(form_data.password, user.password):
         raise HTTPException(status_code=401, detail='아이디 또는 비밀번호가 잘못되었습니다.')
-
-    # 토큰 수여식
-    expire = datetime.now() + timedelta(minutes=15)
-
-    payload = {
-        'sub': user.username,
-        'exp': expire
-    }
-
-    access_token = jwt.encode(payload, auth.SECRET_KEY, algorithm=auth.ALGORITHM)
 
     # 스키마의 Token 클래스의 형식에 맞춘다.
     return {'access_token': access_token, 'token_type': 'bearer'}
