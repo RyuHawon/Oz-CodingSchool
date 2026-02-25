@@ -27,24 +27,28 @@ async def get_status(
     p = result.scalar_one_or_none()
 
     # 포트폴리오(p) 존재 여부에 따라 보유수량(amount)과 평단가(avg_price)를 변수에 저장하세요 (없으면 0)
-    amount = p.amount
-    if amount is None:
-        amount = 0
+    amount = p.amount if p else 0
 
-    avg_price = p.avg_price
-    if p.amount is None:
-        avg_price = 0
+    avg_price = p.avg_price if p else 0
 
-
-
-    # TODO: 현재가(current_price)를 기준으로 다음 수치를 계산하세요
+    # 현재가(current_price)를 기준으로 다음 수치를 계산하세요
     # 1. evaluation: 평가 금액 (보유수량 * 현재가)
     # 2. profit: 평가 손익 (평가 금액 - 투자 원금)
+    evaluation = amount * current_price
+    profit = evaluation - (amount * avg_price)
+
     # 힌트: 투자 원금은 (보유수량 * 평단가) 입니다.
 
     # TODO: 계산된 정보를 바탕으로 다음 키를 가진 딕셔너리를 반환하세요
     # 반환 키: "cash", "holdings", "evaluation", "profit", "total_asset"
-    pass
+    return {
+        "cash": user.balance,
+        "holdings": amount,
+        "avg_price": avg_price,
+        "evaluation": evaluation,
+        "profit": profit,
+        "total_asset": user.balance + evaluation
+    }
 
 
 @router.post("/trade/{action}")
@@ -57,7 +61,8 @@ async def trade(
     """매수 및 매도 처리 로직 실습"""
 
     username = user.username
-    # TODO: DB에서 해당 유저의 포트폴리오 정보를 조회하세요 (변수명: p)
+    # DB에서 해당 유저의 포트폴리오 정보를 조회하세요 (변수명: p)
+    result
 
     if action == "buy":
         # TODO: 총 매수 비용(cost)을 계산하고, 유저 잔액(user.balance)이 부족할 경우 HTTPException(400)을 발생시키세요.
