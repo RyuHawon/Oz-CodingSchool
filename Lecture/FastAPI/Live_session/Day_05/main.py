@@ -93,7 +93,7 @@ async def login(
         raise HTTPException(status_code=401, detail='아이디 또는 비밀번호가 잘못되었습니다.')
 
     # 스키마의 Token 클래스의 형식에 맞춘다.
-    return {'access_token': access_token, 'token_type': 'bearer'}
+    return {'access_token': oauth2_scheme, 'token_type': 'bearer'}
 
 
 

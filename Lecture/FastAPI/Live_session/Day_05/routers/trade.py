@@ -111,7 +111,7 @@ async def trade(
             await db.delete(p)
         # 수량이 0이 될 경우 db.delete(p)를 호출하여 데이터를 삭제하세요.
 
-
+    await db.commit()
     # db.commit()으로 변경 사항을 저장하세요.
 
     # manager.broadcast를 사용해 전체 사용자에게 거래 알림 메시지를 전송하세요.
