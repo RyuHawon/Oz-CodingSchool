@@ -22,7 +22,8 @@ pwd_context = CryptContext(schemes=["argon2"], deprecated="auto")
 # 토큰 추출을 위한 OAuth2 설정
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
 
-def create
+def create_access_token(data: dict):
+    to_encode = data.copy()
 
 
 async def get_current_user(

@@ -6,10 +6,11 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
-from database import get_db
-from auth import get_current_user
-import models, schemas
-from .market import manager
+from ..database import get_db
+from ..auth import get_current_user
+from .. import models
+from .. import schemas
+from market import manager
 
 router = APIRouter()
 
