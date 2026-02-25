@@ -5,6 +5,8 @@
 """
 
 from contextlib import asynccontextmanager
+from datetime import datetime, timedelta
+
 from fastapi import FastAPI, Depends, HTTPException
 from fastapi.security import OAuth2PasswordRequestForm
 from fastapi.middleware.cors import CORSMiddleware
@@ -53,7 +55,7 @@ async def register(
     """회원가입"""
     # 중복 아이디를 확인하고, 새로운 유저를 생성하여 DB에 저장하세요
     result = await db.execute(select(models.User).where(models.User.username == username))
-    existing_user = result.scalar().one_or_none()
+    existing_user = result.scalar_one_or_none()
 
     if existing_user:
         raise HTTPException(status_code=400, detail='이미 존재하는 아이디 입니다.')
@@ -66,6 +68,10 @@ async def register(
         password=hashed_password,
         balance=3000000.0
     )
+
+    db.add(new_user)
+    await db.commit()
+    return {'msg': '성공적으로 회원가입 되었습니다.'}
 
 
 """로그인"""
@@ -80,13 +86,22 @@ async def login(
     result = await db.execute(select(models.User).where(models.User.username == form_data.username))
     user = result.scalar_one_or_none()
 
-    if user is None:
-        raise HTTPException(status_code=401, detail='존재하지 않는 유저입니다.')
-
-    password_check = auth.pwd_context.verify(form_data.password, user.password)
-    user = result.scalar_one_or_none()
+    if user is None or not auth.pwd_context.verify(form_data.password, user.password):
+        raise HTTPException(status_code=401, detail='아이디 또는 비밀번호가 잘못되었습니다.')
 
     # 토큰 수여식
+    expire = datetime.now() + timedelta(minutes=15)
+
+    payload = {
+        'sub': user.username,
+        'exp': expire
+    }
+
+    access_token = jwt.encode(payload, auth.SECRET_KEY, algorithm=auth.ALGORITHM)
+
+    # 스키마의 Token 클래스의 형식에 맞춘다.
+    return {'access_token': access_token, 'token_type': 'bearer'}
+
 
 
 
