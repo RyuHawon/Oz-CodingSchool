@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.http import HttpResponse, Http404
+from django.shortcuts import render
 
 
 movie_list = [
@@ -32,18 +33,16 @@ def index(request):
 
 
 def book_list(request):
+    # book_text = ''
+    #
+    # for i in range(0, 10):
+    #     book_text += f'book {i}<br>'
 
-    book_text = ''
-
-    for i in range(0, 10):
-        book_text += f'book {i}<br>'
-
-    return HttpResponse(book_text)
+    return render(request, 'book_list.html', {'range': range(0, 10)})
 
 
 def book(request, num):
-    book_text = f'book {num}번 페이지입니다.'
-    return HttpResponse(book_text)
+    return render(request, 'book.html', {'num': num})
 
 
 def language(request, lang):
@@ -51,14 +50,16 @@ def language(request, lang):
 
 
 def movies(request):
-    movie_titles = [
-        f'<a href="/movie/{index}/">{movie['title']}</a>'
-        for index, movie in enumerate(movie_list)
-    ]
+    # movie_titles = [
+    #     f'<a href="/movie/{index}/">{movie['title']}</a>'
+    #     for index, movie in enumerate(movie_list)
+    # ]
+    #
+    # response_text = '<br>'.join(movie_titles)
+    #
+    # return HttpResponse(response_text)
 
-    response_text = '<br>'.join(movie_titles)
-
-    return HttpResponse(response_text)
+    return render(request, 'movies.html', {'movie_list': movie_list})
 
 
 def movie_detail(request, index):
@@ -67,8 +68,10 @@ def movie_detail(request, index):
 
     movie = movie_list[index]
 
-    response_text = f'<h1>{movie['title']}</h1> <p>감독: {movie['director']}</p>'
-    return HttpResponse(response_text)
+    return render(request, 'movie.html', {'movie': movie})
+
+    # response_text = f'<h1>{movie['title']}</h1> <p>감독: {movie['director']}</p>'
+    # return HttpResponse(response_text)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
