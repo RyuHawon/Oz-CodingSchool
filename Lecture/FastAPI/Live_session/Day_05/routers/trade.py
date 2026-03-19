@@ -8,8 +8,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 from ..database import get_db
 from ..auth import get_current_user
-from .. import models
-from .. import schemas
+from Day_05 import models
+from Day_05 import schemas
 from market import manager
 
 router = APIRouter()
