@@ -73,6 +73,14 @@ def movie_detail(request, index):
     # response_text = f'<h1>{movie['title']}</h1> <p>감독: {movie['director']}</p>'
     # return HttpResponse(response_text)
 
+
+def gugu(request, num):
+    context = {
+        'num': num,
+        'results': [num * i for i in range(1,10)]
+    }
+
+    return render(request, 'gugu.html', context)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index),
@@ -81,4 +89,5 @@ urlpatterns = [
     path('language/<str:lang>/', language),
     path('movie/', movies),
     path('movie/<int:index>/', movie_detail),
+    path('gugu/<int:num>/', gugu),
 ]
