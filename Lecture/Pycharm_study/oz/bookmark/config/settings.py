@@ -43,7 +43,11 @@ OWN_APPS = [
     'bookmark',
 ]
 
-INSTALLED_APPS = DJANGO_APPS + OWN_APPS
+THIRD_PARTY_APPS = [
+    'django_extensions',
+]
+
+INSTALLED_APPS = DJANGO_APPS + OWN_APPS + THIRD_PARTY_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -108,7 +112,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/6.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ko-KR'
 
 TIME_ZONE = 'UTC'
 
