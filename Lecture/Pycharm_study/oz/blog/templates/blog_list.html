@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <nav>
+        <div style="text-align: right">
+            {% if request.user.is_authenticated %}
+                <form action="{% url 'logout' %}" method="POST" style="display: inline">
+                    {% csrf_token %}
+                    <button>로그아웃</button>
+                </form>
+                {{ request.user.username }}
+
+            {% else %}
+                <a href="{% url 'login' %}">로그인</a>
+
+            {% endif %}
+        </div>
+    </nav>
+
+        <h1>Blog List {{ count }}</h1>
+    {% for blog in blogs %}
+        <a href="{% url 'blog_detail' pk=blog.pk %}">
+            <h3>{{ blog.title }}</h3>
+        </a>
+    {% endfor %}
+
+</body>
+</html>
