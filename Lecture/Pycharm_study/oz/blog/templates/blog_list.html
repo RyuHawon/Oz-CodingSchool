@@ -11,7 +11,9 @@
     {% endfor %}
 
     <form method="get" style="margin-bottom: 10px;">
-        <input name="q" type="text" placeholder="검색어를 입력하세요." value="{% if request.GET.q %}{{ request.GET.q }}{% endif %}">
+        <label>
+            <input name="q" type="text" placeholder="검색어를 입력하세요." value="{% if request.GET.q %}{{ request.GET.q }}{% endif %}">
+        </label>
         <button>검색</button>
     </form>
 
