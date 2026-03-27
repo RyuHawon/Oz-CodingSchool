@@ -1,35 +1,38 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-    <nav>
-        <div style="text-align: right">
-            {% if request.user.is_authenticated %}
-                <form action="{% url 'logout' %}" method="POST" style="display: inline">
-                    {% csrf_token %}
-                    <button>로그아웃</button>
-                </form>
-                {{ request.user.username }}
+{% extends 'base.html' %}
 
-            {% else %}
-                <a href="{% url 'login' %}">로그인</a><br>
-                <a href="{% url 'signup' %}">회원가입</a>
-            {% endif %}
-        </div>
-    </nav>
+{% block content %}
+    <div>
+        <h1>Todo List</h1>
+        <p style="text-align: right">
+            <a href="{% url 'todo_create' %}">create</a>
+        </p>
+    </div>
     <hr>
 
-    <h1>Todo List</h1>
-    {% for todo in todos %}
-        <p>
-            <a href="{% url 'todo_info' pk=todo.pk %}">{{ todo.title }}</a>
-        </p>
+    {% for todo in page_obj %}
+        <div>
+            <h4>
+                <a href="{% url 'todo_info' pk=todo.pk %}">{{ todo.title }}</a> [until {{ todo.end_date|date:"Y-m-d" }} Status: {{ todo.is_completed }}]
+            </h4>
+        </div>
+        <hr>
     {% endfor %}
-</body>
-</html>
+
+    <nav>
+        <ul>
+            {% if page_obj.has_previous %}
+                <li><a href="?page=1">&laquo; first page</a></li>
+                <li><a href="?page={{ page_obj.previous_page_number }}">prev</a></li>
+            {% endif %}
+
+            <li>
+                page {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}
+            </li>
+
+            {% if page_obj.has_next %}
+                <li><a href="?page={{ page_obj.next_page_number }}">next</a></li>
+                <li><a href="?page={{ page_obj.paginator.num_pages }}">last page &raquo;</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+{% endblock %}

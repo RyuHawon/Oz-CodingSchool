@@ -1,4 +1,7 @@
+from django.contrib.auth import get_user_model
 from django.db import models
+
+User = get_user_model()
 
 class Todo(models.Model):
     title = models.CharField('제목', max_length=50)
@@ -8,6 +11,7 @@ class Todo(models.Model):
     is_completed = models.BooleanField('완료여부', default=False)
     created_at = models.DateTimeField('생성일', auto_now_add=True)
     modified_at = models.DateTimeField('수정일', auto_now=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'Todo'

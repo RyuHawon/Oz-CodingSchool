@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Todo App</title>
+</head>
+<body>
+    <nav style="display: flex; justify-content: space-between">
+        <div>
+            <a href="{% url 'todo_list' %}">Home</a>
+        </div>
+        <div style="text-align: right">
+            {% if request.user.is_authenticated %}
+                <form action="{% url 'logout' %}" method="POST" style="display: inline">
+                    {% csrf_token %}
+                    <button>Logout</button>
+                </form><br>
+                {{ request.user.username }}
+
+            {% else %}
+                <a href="{% url 'login' %}">Login</a>
+                <a href="{% url 'signup' %}">Signup</a>
+
+            {% endif %}
+        </div>
+    </nav>
+    {% block content %}{% endblock %}
+</body>
+</html>

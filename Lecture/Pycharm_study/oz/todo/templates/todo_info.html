@@ -1,17 +1,22 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-    <h1>{{ todo.title }}</h1>
-    <p>설명 : {{ todo.description }}</p>
-    <p>시작일 : {{ todo.start_date }}</p>
-    <p>마감일 : {{ todo.end_date }}</p>
-    <p>완료여부 : {{ todo.is_completed }}</p>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{{ title }}</h1>
+    <p><strong>author:</strong> {{ user }}</p>
+    <p><strong>created at:</strong> {{ created_at|date:"Y-m-d h:i a" }}</p>
+    <hr>
+    <p><strong>description:</strong><br>{{ description|linebreaksbr }}</p>
+    <p>start: {{ start_date|date:"Y-m-d h:i a" }}</p>
+    <p>end: {{ end_date|date:"Y-m-d h:i a" }}</p>
+    <p><strong>is complted?</strong><br>{{ is_completed }}</p>
+    <hr>
+
+    <a href="{% url 'todo_update' pk=id %}">edit</a>
+
+    <form action="{% url 'todo_delete' pk=id %}" method="post" style="display: inline;">
+        {% csrf_token %}
+        <button type="submit" onclick="return confirm('Are you sure you want to delete it?');">delete</button>
+    </form>
+
+    <a href="{% url 'todo_list' %}">back</a>
+{% endblock %}
