@@ -10,6 +10,7 @@ urlpatterns = [
     path('todo/create/', views.todo_create, name='todo_create'),
     path('todo/<int:pk>/update/', views.todo_update, name='todo_update'),
     path('todo/<int:pk>/delete', views.todo_delete, name='todo_delete'),
+    path('todo/<int:pk>/toggle_complete/', views.todo_toggle_complete, name='todo_toggle_complete'), # 새로 추가
 
     # account
     path('accounts/', include('django.contrib.auth.urls')),

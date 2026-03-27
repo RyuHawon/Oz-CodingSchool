@@ -3,12 +3,31 @@
 {% block content %}
     <h1>{{ title }}</h1>
     <p><strong>Author:</strong> {{ user }}</p>
-    <p><strong>Created at:</strong> {{ created_at|date:"y-m-d g a" }}</p>
+    <p><strong>Created at:</strong> {{ created_at|date:"y-m-d H:i" }}</p>
     <hr>
-    <p><strong>Description:</strong><br>{{ description|linebreaksbr }}</p>
-    <p><strong>Start Date:</strong> {{ start_date|date:"y-m-d g a" }}</p>
-    <p><strong>End Date:</strong> {{ end_date|date:"y-m-d g a" }}</p>
-    <p><strong>Completed:</strong> {{ is_completed }}</p>
+
+    <div>
+        <p><strong>Description:</strong></p>
+        <div style="background-color: #f9f9f9; padding: 15px; border-radius: 5px; border: 1px solid #eee;">
+            {{ description|linebreaksbr }}
+        </div>
+    </div>
+
+    <div style="margin-top: 20px; padding-top: 15px; border-top: 1px dashed #ccc;">
+        <p>
+            <strong>Start Date:</strong> {{ start_date|date:"y-m-d" }}
+            &nbsp;&nbsp;|&nbsp;&nbsp;
+            <strong>End Date:</strong> {{ end_date|date:"y-m-d" }}
+        </p>
+        <p>
+            <strong>Completed:</strong>
+            {% if is_completed %}
+                <span style="color: green; font-weight: bold;">True</span>
+            {% else %}
+                <span style="color: red; font-weight: bold;">False</span>
+            {% endif %}
+        </p>
+    </div>
     <hr>
 
     <div style="margin-top: 20px;">
