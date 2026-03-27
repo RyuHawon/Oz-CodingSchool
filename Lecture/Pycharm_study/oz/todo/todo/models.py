@@ -1,16 +1,17 @@
 from django.contrib.auth import get_user_model
 from django.db import models
+from datetime import date
 
 User = get_user_model()
 
 class Todo(models.Model):
-    title = models.CharField('제목', max_length=50)
-    description = models.TextField('설명')
-    start_date = models.DateTimeField('시작일')
-    end_date = models.DateTimeField('마감일')
-    is_completed = models.BooleanField('완료여부', default=False)
-    created_at = models.DateTimeField('생성일', auto_now_add=True)
-    modified_at = models.DateTimeField('수정일', auto_now=True)
+    title = models.CharField('Title', max_length=50)
+    description = models.TextField('Description')
+    start_date = models.DateField('Start Date', default=date.today)
+    end_date = models.DateField('End Date', default=date.today)
+    is_completed = models.BooleanField('Completed', default=False)
+    created_at = models.DateTimeField('Created At', auto_now_add=True)
+    modified_at = models.DateTimeField('Modified At', auto_now=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:

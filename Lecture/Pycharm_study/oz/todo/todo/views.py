@@ -5,6 +5,8 @@ from django.core.paginator import Paginator
 from .models import Todo
 from .forms import TodoForm
 from django.views.decorators.http import require_http_methods
+from datetime import date
+from django.contrib import messages # messages 모듈 임포트
 
 @login_required
 def todo_list(request):
@@ -35,8 +37,13 @@ def todo_create(request):
             todo.user = request.user
             todo.save()
             return redirect('todo_info', pk=todo.pk)
+        else:
+            # 폼 유효성 검사 실패 시 오류 메시지 추가
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f"{field}: {error}")
     else:
-        form = TodoForm()
+        form = TodoForm(initial={'start_date': date.today(), 'end_date': date.today()})
     return render(request, 'todo_create.html', {'form': form})
 
 
@@ -48,6 +55,11 @@ def todo_update(request, pk):
         if form.is_valid():
             form.save()
             return redirect('todo_info', pk=todo.pk)
+        else:
+            # 폼 유효성 검사 실패 시 오류 메시지 추가
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f"{field}: {error}")
     else:
         form = TodoForm(instance=todo)
     context = {'form': form, 'todo': todo}
@@ -59,4 +71,16 @@ def todo_update(request, pk):
 def todo_delete(request, pk):
     todo = get_object_or_404(Todo, pk=pk, user=request.user)
     todo.delete()
+    return redirect('todo_list')
+
+@login_required
+@require_http_methods(["POST"])
+def todo_toggle_complete(request, pk):
+    todo = get_object_or_404(Todo, pk=pk, user=request.user)
+    is_completed = request.POST.get('is_completed')
+    if is_completed == 'on':
+        todo.is_completed = True
+    else:
+        todo.is_completed = False
+    todo.save()
     return redirect('todo_list')
