@@ -1,29 +1,31 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Todo App</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-    <nav style="display: flex; justify-content: space-between">
+    <nav>
+        <a href="{% url 'todo_list' %}" style="font-size: 1.2em; font-weight: bold;">Todo App</a>
         <div>
-            <a href="{% url 'todo_list' %}">Home</a>
-        </div>
-        <div style="text-align: right">
-            {% if request.user.is_authenticated %}
-                <form action="{% url 'logout' %}" method="POST" style="display: inline">
+            {% if user.is_authenticated %}
+                <span>Welcome, {{ user.username }}</span>
+                <form action="{% url 'logout' %}" method="POST" style="display: inline; margin-left: 10px;">
                     {% csrf_token %}
-                    <button>Logout</button>
-                </form><br>
-                {{ request.user.username }}
-
+                    <button type="submit" class="button">Logout</button>
+                </form>
             {% else %}
-                <a href="{% url 'login' %}">Login</a>
-                <a href="{% url 'signup' %}">Signup</a>
-
+                <a href="{% url 'login' %}" class="button">Login</a>
+                <a href="{% url 'signup' %}" class="button" style="margin-left: 5px;">Sign Up</a>
             {% endif %}
         </div>
     </nav>
-    {% block content %}{% endblock %}
+    <hr>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
 </body>
 </html>

@@ -1,16 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    <h1>회원가입 페이지</h1>
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Sign Up</h2>
     <form method="POST">
         {% csrf_token %}
         {{ form.as_p }}
-        회원가입 폼 제출하기 <button>submit</button>
+        <button type="submit" class="button">Sign Up</button>
     </form>
-
-</body>
-</html>
+    <p style="margin-top: 20px;">
+        Already have an account?
+        <a href="{% url 'login' %}">Login here</a>
+    </p>
+{% endblock %}
