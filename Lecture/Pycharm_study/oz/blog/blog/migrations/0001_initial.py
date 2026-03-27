@@ -7,20 +7,33 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Blog',
+            name="Blog",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('category', models.CharField(max_length=50, verbose_name='카테고리')),
-                ('title', models.CharField(max_length=100, verbose_name='제목')),
-                ('content', models.TextField(verbose_name='내용')),
-                ('author', models.CharField(max_length=50, verbose_name='작성자')),
-                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='작성일')),
-                ('updated_at', models.DateTimeField(auto_now=True, verbose_name='수정일')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("category", models.CharField(max_length=50, verbose_name="카테고리")),
+                ("title", models.CharField(max_length=100, verbose_name="제목")),
+                ("content", models.TextField(verbose_name="내용")),
+                ("author", models.CharField(max_length=50, verbose_name="작성자")),
+                (
+                    "created_at",
+                    models.DateTimeField(auto_now_add=True, verbose_name="작성일"),
+                ),
+                (
+                    "updated_at",
+                    models.DateTimeField(auto_now=True, verbose_name="수정일"),
+                ),
             ],
         ),
     ]

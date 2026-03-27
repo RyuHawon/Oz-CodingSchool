@@ -6,21 +6,30 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('blog', '0001_initial'),
+        ("blog", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='blog',
-            options={'verbose_name': '블로그', 'verbose_name_plural': '블로그 목록'},
+            name="blog",
+            options={"verbose_name": "블로그", "verbose_name_plural": "블로그 목록"},
         ),
         migrations.RemoveField(
-            model_name='blog',
-            name='author',
+            model_name="blog",
+            name="author",
         ),
         migrations.AlterField(
-            model_name='blog',
-            name='category',
-            field=models.CharField(choices=[('free', '자유'), ('travle', '여행'), ('cat', '고양이'), ('dog', '강아지')], max_length=50, verbose_name='카테고리'),
+            model_name="blog",
+            name="category",
+            field=models.CharField(
+                choices=[
+                    ("free", "자유"),
+                    ("travle", "여행"),
+                    ("cat", "고양이"),
+                    ("dog", "강아지"),
+                ],
+                max_length=50,
+                verbose_name="카테고리",
+            ),
         ),
     ]
