@@ -1,0 +1,46 @@
+[project]
+name = "blog-api"
+version = "0.1.0"
+description = "Add your description here"
+requires-python = ">=3.13"
+dependencies = [
+    "django==4.2.23",
+    "djangorestframework==3.16",
+    "djangorestframework-simplejwt>=5.5.1",
+    "psycopg2-binary>=2.9.11",
+    "python-dotenv>=1.2.2",
+]
+
+[tool.uv.workspace]
+members = [
+    "djangostudy/blog_api",
+]
+
+[dependency-groups]
+dev = [
+    "pre-commit>=4.5.1",
+    "ruff>=0.15.8",
+]
+
+[tool.ruff]
+line-length = 88
+target-version = "py312"
+exclude = ["migrations"]
+
+[tool.ruff.lint]
+select = [
+    "E",
+    "F",
+    "I",
+    "DJ",
+    "UP",
+    "B",
+    "Q",
+]
+ignore = ["E203"]
+fixable = ["ALL"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
