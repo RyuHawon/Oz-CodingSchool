@@ -1,3 +1,36 @@
+# Virtual environments
 .venv/
+.python-version
+
+# Python
 __pycache__/
+*.pyc
+*.pyo
+
+# IDE
 .idea/
+
+# macOS
+.DS_Store
+
+# Testing & Coverage
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Linter & Type checker
+.ruff_cache/
+.mypy_cache/
+.dmypy.json
+
+# Database
+db.sqlite3
+
+# Environment variables
+.env
+.env.local
+
+# Build artifacts
+dist/
+build/
+*.egg-info/
